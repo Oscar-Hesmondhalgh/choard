@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kQP-Tk-Od3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="ksg-56-qia">
+            <objects>
+                <viewController id="kQP-Tk-Od3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wWE-Ln-Cd3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qoe-Zg-s08" userLabel="ARContainerView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="embed" id="Nbw-R7-OPv"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udX-rC-MU3" userLabel="PickerContainerView">
+                                <rect key="frame" x="0.0" y="658" width="414" height="204"/>
+                                <connections>
+                                    <segue destination="2fD-1J-LuS" kind="embed" id="HWb-uX-o2a"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FWx-9p-RoT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qoe-Zg-s08" firstAttribute="centerX" secondItem="FWx-9p-RoT" secondAttribute="centerX" id="2dP-pT-Vf0"/>
+                            <constraint firstItem="udX-rC-MU3" firstAttribute="centerX" secondItem="FWx-9p-RoT" secondAttribute="centerX" id="8D1-8f-5qA"/>
+                            <constraint firstItem="FWx-9p-RoT" firstAttribute="bottom" secondItem="udX-rC-MU3" secondAttribute="bottom" id="C9P-np-FrC"/>
+                            <constraint firstItem="udX-rC-MU3" firstAttribute="height" secondItem="qoe-Zg-s08" secondAttribute="height" multiplier="0.25" id="D5H-vD-kdD"/>
+                            <constraint firstItem="udX-rC-MU3" firstAttribute="width" secondItem="FWx-9p-RoT" secondAttribute="width" id="SNV-Be-bfq"/>
+                            <constraint firstItem="qoe-Zg-s08" firstAttribute="width" secondItem="FWx-9p-RoT" secondAttribute="width" id="T69-gh-FPx"/>
+                            <constraint firstItem="qoe-Zg-s08" firstAttribute="height" secondItem="FWx-9p-RoT" secondAttribute="height" id="l3f-vU-Zh7"/>
+                            <constraint firstItem="qoe-Zg-s08" firstAttribute="centerY" secondItem="FWx-9p-RoT" secondAttribute="centerY" id="tLC-E0-gAB"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ugo-q9-FCy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-657" y="134"/>
+        </scene>
         <!--ARView-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" userLabel="ARView" customClass="ViewController" customModule="ChoARd" customModuleProvider="target" sceneMemberID="viewController">
                     <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="49M-nT-wxw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </arscnView>
                     <connections>
@@ -22,5 +63,18 @@
             </objects>
             <point key="canvasLocation" x="138" y="134"/>
         </scene>
+        <!--ChordPickerViewController-->
+        <scene sceneID="Xjp-ZQ-n89">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChordPickerViewController" id="2fD-1J-LuS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y5H-6h-Jep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-661" y="552"/>
+        </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
