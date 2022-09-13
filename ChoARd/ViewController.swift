@@ -5,7 +5,8 @@ import SpriteKit
 
 class ViewController: UIViewController {
     @IBOutlet var scnView: ARSCNView!
-    var boxAnchor: Experience.Box?
+    var keyNodes = [SCNNode]()
+    var selectedNotes = ["C1", "E1" , "G1"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,30 +23,21 @@ class ViewController: UIViewController {
         }
         configuration.frameSemantics.insert(.personSegmentationWithDepth)
         configuration.detectionObjects = ARReferenceObject.referenceObjects(inGroupNamed: "Models", bundle: nil)!
-        // configuration.planeDetection = .horizontal
         scnView.session.run(configuration)
     }
 }
 
 extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
+
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
 
         if let objectAnchor = anchor as? ARObjectAnchor {
             print("detected in renderer")
-            let planeNodes = getKeyPlanes(objectAnchor);
-
-            let selectedNotes = ["C1", "E1" , "G1"]
-
-            for planeNode in planeNodes {
-                node.addChildNode(planeNode)
-
-                let selected = selectedNotes.contains(planeNode.name!)
-                let blackNote = planeNode.name!.contains("#")
-                let offColor = blackNote ? UIColor.black : UIColor.white
-                let offOpacity = blackNote ? 0.6 : 0.3
-                planeNode.opacity = selected ? 0.8 : offOpacity
-                planeNode.geometry?.firstMaterial?.diffuse.contents = selected ? UIColor.blue : offColor
+            keyNodes = getKeyPlanes(objectAnchor)
+            updateKeyProperties()
+            for keyNode in keyNodes {
+                node.addChildNode(keyNode)
             }
         }
 
@@ -57,6 +49,17 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
 //            guard let object = anchors[0] as? ARObjectAnchor else { return }
 //
 //        }
+    }
+
+    func updateKeyProperties() {
+        for keyNode in keyNodes {
+            let selected = selectedNotes.contains(keyNode.name!)
+            let blackNote = keyNode.name!.contains("#")
+            let offColor = blackNote ? UIColor.black : UIColor.white
+            let offOpacity = blackNote ? 0.6 : 0.3
+            keyNode.opacity = selected ? 0.8 : offOpacity
+            keyNode.geometry?.firstMaterial?.diffuse.contents = selected ? UIColor.blue : offColor
+        }
     }
 
     func getKeyPlanes(_ objectAnchor: ARObjectAnchor) -> [SCNNode] {
@@ -77,21 +80,21 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
             let indexes = (key + 7).quotientAndRemainder(dividingBy: 7)
 
             let noteLetter = whiteNotes[indexes.remainder]
+            let noteOctave = indexes.quotient
             let plane = SCNPlane(width: CGFloat(whiteKeyHeight), height: CGFloat(whiteKeyWidth))
             plane.firstMaterial?.isDoubleSided = true
             let whiteNode = SCNNode(geometry: plane)
-            print(whiteNotes[indexes.remainder] + "\(indexes.quotient)")
-            whiteNode.name = noteLetter + "\(indexes.quotient)"
+            whiteNode.name = noteLetter + "\(noteOctave)"
             whiteNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x + whiteKeyHeightOffset, objectAnchor.referenceObject.center.y, objectAnchor.referenceObject.center.z - (whiteKeySpace * Float(CGFloat(key))))
             whiteNode.rotation = SCNVector4Make(1, 0, 0, .pi * 0.5);
             planeNodes.append(whiteNode)
 
-            if blackNotes.contains(noteLetter){
+            if (blackNotes.contains(noteLetter) && (noteOctave != 2)) {
                 let blackPlane = SCNPlane(width: CGFloat(blackKeyHeight), height: CGFloat(blackKeyWidth))
                 blackPlane.firstMaterial?.isDoubleSided = true
                 let blackNode = SCNNode(geometry: blackPlane)
 
-                blackNode.name = noteLetter + "#\(indexes.quotient)"
+                blackNode.name = noteLetter + "#\(noteOctave)"
                 blackNode.position = SCNVector3Make(whiteNode.position.x - 0.02, whiteNode.position.y  + 0.005, whiteNode.position.z - (whiteKeySpace / 2))
                 blackNode.rotation = whiteNode.rotation
                 planeNodes.append(blackNode)
