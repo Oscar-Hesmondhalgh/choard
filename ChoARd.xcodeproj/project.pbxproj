@@ -14,6 +14,7 @@
 		A136B54C28D0745B00CA21EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136B54A28D0745B00CA21EB /* Main.storyboard */; };
 		A136B54E28D0745D00CA21EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A136B54D28D0745D00CA21EB /* Assets.xcassets */; };
 		A136B55128D0745D00CA21EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A136B54F28D0745D00CA21EB /* LaunchScreen.storyboard */; };
+		B4C02B3B28D0D0E0005ED044 /* chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C02B3A28D0D0E0005ED044 /* chords.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		A136B54B28D0745B00CA21EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A136B54D28D0745D00CA21EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A136B55028D0745D00CA21EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B4C02B3A28D0D0E0005ED044 /* chords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chords.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				37935F9628D0B88C008586D7 /* ChordPickerViewController.storyboard */,
 				A136B54D28D0745D00CA21EB /* Assets.xcassets */,
 				A136B54F28D0745D00CA21EB /* LaunchScreen.storyboard */,
+				B4C02B3A28D0D0E0005ED044 /* chords.swift */,
 			);
 			path = ChoARd;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				A136B54728D0745B00CA21EB /* ViewController.swift in Sources */,
 				A136B54528D0745B00CA21EB /* AppDelegate.swift in Sources */,
+				B4C02B3B28D0D0E0005ED044 /* chords.swift in Sources */,
 				A136B54928D0745B00CA21EB /* Experience.rcproject in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
