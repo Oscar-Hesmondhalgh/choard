@@ -135,6 +135,20 @@ class ChordDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         default: return nil
         }
     }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let rootRow = pickerView.selectedRow(inComponent: 0)
+        let qualityRow = pickerView.selectedRow(inComponent: 1)
+        let jazzinessRow = pickerView.selectedRow(inComponent: 2)
+
+        let rootValue = rootValues[rootRow]
+        let qualityValue = typeValues[qualityRow]
+        let jazzinessValue = Jazziness.allCases[jazzinessRow]
+
+        let notes = getNotes(root: rootValue, quality: qualityValue, jazziness: jazzinessValue)
+
+        print(notes)
+    }
 }
 
 class ChordPickerDataController: UIViewController {
