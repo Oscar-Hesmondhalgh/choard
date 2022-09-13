@@ -41,8 +41,11 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
                 node.addChildNode(planeNode)
 
                 let selected = selectedNotes.contains(planeNode.name!)
-                planeNode.opacity = selected ? 1 : 0.3
-                planeNode.geometry?.firstMaterial?.diffuse.contents = selected ? UIColor.red : UIColor.white
+                let blackNote = planeNode.name!.contains("#")
+                let offColor = blackNote ? UIColor.black : UIColor.white
+                let offOpacity = blackNote ? 0.6 : 0.3
+                planeNode.opacity = selected ? 0.8 : offOpacity
+                planeNode.geometry?.firstMaterial?.diffuse.contents = selected ? UIColor.blue : offColor
             }
         }
 
@@ -59,24 +62,41 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
     func getKeyPlanes(_ objectAnchor: ARObjectAnchor) -> [SCNNode] {
 
         let whiteNotes = ["C", "D", "E", "F", "G", "A", "B"]
+        let blackNotes = ["C", "D", "F", "G", "A"]
         var planeNodes = [SCNNode]()
-        let keyWidth = objectAnchor.referenceObject.extent.z / 17
-        let keyHeight = objectAnchor.referenceObject.extent.x / 2.8
-        let keyHeightOffset = objectAnchor.referenceObject.extent.x / 5
-        let keyGap = keyWidth * 0.1
-        let keySize = keyWidth - keyGap
+        let whiteKeySpace = objectAnchor.referenceObject.extent.z / 17
+        let whiteKeyHeight = objectAnchor.referenceObject.extent.x / 2.8
+        let whiteKeyHeightOffset = objectAnchor.referenceObject.extent.x / 18
+        let whiteKeyGap = whiteKeySpace * 0.1
+        let whiteKeyWidth = whiteKeySpace - whiteKeyGap
+
+        let blackKeyWidth = whiteKeyWidth / 1.7
+        let blackKeyHeight = whiteKeyHeight / 1.7
 
         for key in -7...7 {
             let indexes = (key + 7).quotientAndRemainder(dividingBy: 7)
 
-            let plane = SCNPlane(width: CGFloat(keyHeight), height: CGFloat(keySize))
+            let noteLetter = whiteNotes[indexes.remainder]
+            let plane = SCNPlane(width: CGFloat(whiteKeyHeight), height: CGFloat(whiteKeyWidth))
             plane.firstMaterial?.isDoubleSided = true
-            let planeNode = SCNNode(geometry: plane)
+            let whiteNode = SCNNode(geometry: plane)
             print(whiteNotes[indexes.remainder] + "\(indexes.quotient)")
-            planeNode.name = whiteNotes[indexes.remainder] + "\(indexes.quotient)"
-            planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y - keyHeightOffset, objectAnchor.referenceObject.center.z - (keyWidth * Float(CGFloat(key))))
-            planeNode.rotation = SCNVector4Make(1, 0, 0, .pi * 0.5);
-            planeNodes.append(planeNode)
+            whiteNode.name = noteLetter + "\(indexes.quotient)"
+            whiteNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x + whiteKeyHeightOffset, objectAnchor.referenceObject.center.y, objectAnchor.referenceObject.center.z - (whiteKeySpace * Float(CGFloat(key))))
+            whiteNode.rotation = SCNVector4Make(1, 0, 0, .pi * 0.5);
+            planeNodes.append(whiteNode)
+
+            if blackNotes.contains(noteLetter){
+                let blackPlane = SCNPlane(width: CGFloat(blackKeyHeight), height: CGFloat(blackKeyWidth))
+                blackPlane.firstMaterial?.isDoubleSided = true
+                let blackNode = SCNNode(geometry: blackPlane)
+
+                blackNode.name = noteLetter + "#\(indexes.quotient)"
+                blackNode.position = SCNVector3Make(whiteNode.position.x - 0.02, whiteNode.position.y  + 0.005, whiteNode.position.z - (whiteKeySpace / 2))
+                blackNode.rotation = whiteNode.rotation
+                planeNodes.append(blackNode)
+            }
+
         }
 
         // planeNodes.reverse() //hack
