@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Chord Picker Data Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="ChordPickerDataController" customModule="ChoARd" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -18,34 +18,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DS4-2a-W2i">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMT-Qm-Pdm" userLabel="Root Picker">
-                                        <rect key="frame" x="0.0" y="0.0" width="73" height="818"/>
-                                    </pickerView>
-                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-5P-rCJ" userLabel="Spacer">
-                                        <rect key="frame" x="73" y="0.0" width="5" height="818"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="5" id="VQS-ax-A8a"/>
-                                        </constraints>
-                                    </view>
-                                    <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="crl-jI-Big" userLabel="Type Picker">
-                                        <rect key="frame" x="78" y="0.0" width="165.5" height="818"/>
-                                    </pickerView>
-                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="jrK-p4-yKc" userLabel="Spacer">
-                                        <rect key="frame" x="243.5" y="0.0" width="5" height="818"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="5" id="KoS-fg-crN"/>
-                                        </constraints>
-                                    </view>
-                                    <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="gWU-9h-5nw" userLabel="Jazziness Picker">
-                                        <rect key="frame" x="248.5" y="0.0" width="165.5" height="818"/>
+                                    <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="gWU-9h-5nw" userLabel="Chord Picker">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                                     </pickerView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="gWU-9h-5nw" firstAttribute="width" secondItem="DS4-2a-W2i" secondAttribute="width" multiplier="0.4" id="hBv-8D-Rax"/>
-                                    <constraint firstItem="crl-jI-Big" firstAttribute="width" secondItem="DS4-2a-W2i" secondAttribute="width" multiplier="0.4" id="sPu-Gn-cjy"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
@@ -58,6 +34,9 @@
                             <constraint firstItem="DS4-2a-W2i" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="pJ9-9h-HkW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chordPicker" destination="gWU-9h-5nw" id="4kh-XT-IwM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

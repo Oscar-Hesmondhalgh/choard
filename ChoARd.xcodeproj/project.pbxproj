@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37935F9728D0B88C008586D7 /* ChordPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37935F9628D0B88C008586D7 /* ChordPickerViewController.storyboard */; };
+		37935FA928D0C345008586D7 /* ChordPickerDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37935FA828D0C345008586D7 /* ChordPickerDataController.swift */; };
 		A136B54528D0745B00CA21EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136B54428D0745B00CA21EB /* AppDelegate.swift */; };
 		A136B54728D0745B00CA21EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A136B54628D0745B00CA21EB /* ViewController.swift */; };
 		A136B54928D0745B00CA21EB /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = A136B54828D0745B00CA21EB /* Experience.rcproject */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		37935F9628D0B88C008586D7 /* ChordPickerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChordPickerViewController.storyboard; sourceTree = "<group>"; };
+		37935FA828D0C345008586D7 /* ChordPickerDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPickerDataController.swift; sourceTree = "<group>"; };
 		A136B54128D0745B00CA21EB /* ChoARd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoARd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A136B54428D0745B00CA21EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A136B54628D0745B00CA21EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			children = (
 				A136B54428D0745B00CA21EB /* AppDelegate.swift */,
 				A136B54628D0745B00CA21EB /* ViewController.swift */,
+				37935FA828D0C345008586D7 /* ChordPickerDataController.swift */,
 				A136B54828D0745B00CA21EB /* Experience.rcproject */,
 				A136B54A28D0745B00CA21EB /* Main.storyboard */,
 				37935F9628D0B88C008586D7 /* ChordPickerViewController.storyboard */,
@@ -145,6 +148,7 @@
 			files = (
 				A136B54728D0745B00CA21EB /* ViewController.swift in Sources */,
 				A136B54528D0745B00CA21EB /* AppDelegate.swift in Sources */,
+				37935FA928D0C345008586D7 /* ChordPickerDataController.swift in Sources */,
 				B4C02B3B28D0D0E0005ED044 /* chords.swift in Sources */,
 				A136B54928D0745B00CA21EB /* Experience.rcproject in Sources */,
 			);
