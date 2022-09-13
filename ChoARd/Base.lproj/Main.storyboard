@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="ksg-56-qia">
             <objects>
-                <viewController id="kQP-Tk-Od3" sceneMemberID="viewController">
+                <viewController id="kQP-Tk-Od3" customClass="RootViewController" customModule="ChoARd" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wWE-Ln-Cd3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udX-rC-MU3" userLabel="PickerContainerView">
-                                <rect key="frame" x="0.0" y="658" width="414" height="204"/>
+                                <rect key="frame" x="0.0" y="657.5" width="414" height="204.5"/>
                                 <connections>
                                     <segue destination="2fD-1J-LuS" kind="embed" id="HWb-uX-o2a"/>
                                 </connections>

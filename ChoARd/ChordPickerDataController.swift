@@ -1,6 +1,10 @@
 import Foundation
 import UIKit
 
+protocol UpdateyNotesDelegate: AnyObject {
+    func update(notes: [String])
+}
+
 class ChordDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     private let rootValues: [String] = [
         "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
@@ -10,6 +14,7 @@ class ChordDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         "major",
         "minor"
     ]
+    weak var delegate: UpdateyNotesDelegate?
 
     let scales = ["major": [0,2,4,5,7,9,11], "minor": [0,2,3,5,7,8,10]];
 
@@ -146,8 +151,7 @@ class ChordDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         let jazzinessValue = Jazziness.allCases[jazzinessRow]
 
         let notes = getNotes(root: rootValue, quality: qualityValue, jazziness: jazzinessValue)
-
-        print(notes)
+        delegate?.update(notes: notes)
     }
 }
 
@@ -155,12 +159,20 @@ class ChordPickerDataController: UIViewController {
     @IBOutlet var chordPicker: UIPickerView!
 
     var chordData: ChordDataSource!
+    weak var delegate: UpdateyNotesDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         chordData = ChordDataSource()
+        chordData.delegate = self
 
         chordPicker.dataSource = chordData
         chordPicker.delegate = chordData
+    }
+}
+
+extension ChordPickerDataController: UpdateyNotesDelegate {
+    func update(notes: [String]) {
+        delegate?.update(notes: notes)
     }
 }
