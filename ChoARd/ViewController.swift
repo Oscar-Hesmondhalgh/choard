@@ -54,7 +54,11 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
 
             let planeNodes = getKeyPlanes(objectAnchor);
 
-            node.addChildNode(planeNodes[0])
+            for planeNode in planeNodes {
+                node.addChildNode(planeNode)
+            }
+
+            // node.addChildNode(planeNodes[0])
 
         }
 
@@ -71,20 +75,33 @@ extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
     }
 
     func getKeyPlanes(_ objectAnchor: ARObjectAnchor) -> [SCNNode] {
-        let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x / 2), height: CGFloat(objectAnchor.referenceObject.extent.z / 17))
 
-        // plane.cornerRadius = plane.width / 8
+        var planeNodes = [SCNNode]()
+        let keyWidth = objectAnchor.referenceObject.extent.z / 17
+        let keyHeight = objectAnchor.referenceObject.extent.x / 2.8
+        let keyHeightOffset = objectAnchor.referenceObject.extent.x / 5
+        let keyGap = keyWidth * 0.1
+        let keySize = keyWidth - keyGap
 
-        let spriteKitScene = SKLabelNode(text: "👾")
+        for key in -7...7 {
 
-        plane.firstMaterial?.diffuse.contents = spriteKitScene
-        plane.firstMaterial?.isDoubleSided = true
-        // plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            let plane = SCNPlane(width: CGFloat(keyHeight), height: CGFloat(keySize))
 
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y, objectAnchor.referenceObject.center.z)
-        planeNode.rotation = SCNVector4Make(1, 0, 0, .pi * 0.5);
-        return [planeNode]
+            let spriteKitScene = SKLabelNode(text: "👾")
+
+            plane.firstMaterial?.diffuse.contents = spriteKitScene
+            plane.firstMaterial?.isDoubleSided = true
+            // plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
+            let planeNode = SCNNode(geometry: plane)
+            planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y - keyHeightOffset, objectAnchor.referenceObject.center.z + (keyWidth * Float(CGFloat(key))))
+            planeNode.rotation = SCNVector4Make(1, 0, 0, .pi * 0.5);
+            planeNodes.append(planeNode)
+        }
+
+        planeNodes.reverse() //hack
+
+        return planeNodes
     }
 }
 
