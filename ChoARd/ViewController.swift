@@ -8,9 +8,10 @@
 import UIKit
 import RealityKit
 import ARKit
+import SpriteKit
 
 class ViewController: UIViewController {
-    @IBOutlet var arView: ARView!
+    @IBOutlet var scnView: ARSCNView!
     var boxAnchor: Experience.Box?
     
     override func viewDidLoad() {
@@ -19,8 +20,9 @@ class ViewController: UIViewController {
         // Load the "Box" scene from the "Experience" Reality File
 //        boxAnchor = try! Experience.loadBox()
 
-        arView.session.delegate = self
-        arView.automaticallyConfigureSession = false
+        scnView.delegate = self
+
+//        arView.automaticallyConfigureSession = false
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -33,42 +35,49 @@ class ViewController: UIViewController {
         configuration.frameSemantics.insert(.personSegmentationWithDepth)
         configuration.detectionObjects = ARReferenceObject.referenceObjects(inGroupNamed: "Models", bundle: nil)!
         // configuration.planeDetection = .horizontal
-        arView.session.run(configuration)
+        scnView.session.run(configuration)
         // arView.scene.anchors.append(boxAnchor!)
 
 
     }
 }
 
-extension ViewController: ARSessionDelegate {
-    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        if anchors[0].name == "Scan_09-44-24" {
-            guard let object = anchors[0] as? ARObjectAnchor else { return }
+extension ViewController: ARSessionDelegate, ARSCNViewDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
 
-            // let transform = object.transform
-            let extent = object.referenceObject.extent
+        let node = SCNNode()
 
-            // Create a transform with a translation of 0.2 meters in front of the camera.
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.2
-            let transform = simd_mul(arView.session.currentFrame!.camera.transform , translation)
+        if let objectAnchor = anchor as? ARObjectAnchor {
 
+            print("detected in renderer")
+            let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x * 0.8), height: CGFloat(objectAnchor.referenceObject.extent.y * 0.5))
 
-            // Add a new anchor to the session.
-            let anchor = ARAnchor(transform: transform)
-            arView.session.add(anchor: anchor)
-//            boxAnchor?.setTransformMatrix(transform, relativeTo: nil)
-//            boxAnchor?.setScale(extent, relativeTo: nil)
-//            arView.scene.anchors.append(boxAnchor!)
+            plane.cornerRadius = plane.width / 8
 
-            print("added box")
+            let spriteKitScene = SKLabelNode(text: "👾")
+
+            plane.firstMaterial?.diffuse.contents = spriteKitScene
+            plane.firstMaterial?.isDoubleSided = true
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+
+            let planeNode = SCNNode(geometry: plane)
+            // planeNode.transform = SCNMatrix4MakeTranslation(0, 0, 0);
+            planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y + 0.35, objectAnchor.referenceObject.center.z)
+
+            node.addChildNode(planeNode)
+
         }
+
+        return node
+    }
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+//        if anchors[0].name == "Scan_09-44-24" {
+//            guard let object = anchors[0] as? ARObjectAnchor else { return }
+//
+//        }
     }
 
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
-    }
-    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-        return SKLabelNode(text: "👾")
     }
 }
 
